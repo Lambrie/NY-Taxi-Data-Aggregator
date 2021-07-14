@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:latest
+    hostname: db
+    container_name: db
+    restart: always
+    volumes:
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      - ./db/ny_cab_trips_data.sql:/docker-entrypoint-initdb.d/ny_cab_trips_data.sql:ro
+    environment:
+      MYSQL_DATABASE: ny_cab_data
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_PASSWORD: root
+    ports:
+      - 3307:3306
+  app:
+    build: .
+    container_name: app
+    command: python assessment.py 2013-12-01 2013-12-31
+    environment:
+      AZURE_STORAGE_CONNECTION_STRING: DefaultEndpointsProtocol=https;AccountName=pdfscripts;AccountKey=AWCK0WemCjuIVz7JG/C6nVmJl/K0WjsLaP0fD48/krS9Ag6rUpiNIB4qbbZNBLI8wryAkWfoHJbg189AiVSogw==;EndpointSuffix=core.windows.net
+    volumes:
+      - .:/Project
+    depends_on:
+      - db
