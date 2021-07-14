@@ -1,4 +1,5 @@
 # NY Taxi Data Aggregator
+[![CircleCI](https://circleci.com/gh/Lambrie/NY-Taxi-Data-Aggregator/tree/master.svg?style=svg)](https://circleci.com/gh/Lambrie/NY-Taxi-Data-Aggregator/tree/master)
 
 This is a basic script that performs the following functions:
 * Accepts input parameters for data filtering
